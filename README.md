@@ -1,21 +1,12 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="assets/expo.svg" width="200" alt="Nest Logo" /></a>
+  <a href="https://expo.dev/" target="blank"><img src="assets/expo.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-  <p align="center">Expo Go app boilerplate.</p>
+  <p align="center">The Meal's main React Native app.</p>
 
 ## Description
 
-Free to use boilerplate to bootstrap your React Native appliacations.
-
-### Presets:
-
-- Tailwindcss
-- Jest/React Native Testing Library
-- ESLint and Prettier
-- Lint and Test workflows
-- pre-commit and lint-staged
-- No routing nor navigation configurations
+React Native app powered by expo go.
 
 ## Installation
 
@@ -28,8 +19,7 @@ $ yarn install
 ```bash
 # development
 $ yarn start
-
-# development (no cache)
+or
 $ yarn dev
 
 # production mode
