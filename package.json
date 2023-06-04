@@ -1,0 +1,66 @@
+{
+  "name": "the-meal",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "dev": "expo start --tunnel -c",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint-format": "prettier ./ --write && eslint --fix ./",
+    "lint-staged": "lint-staged",
+    "test": "jest --watch",
+    "test:ci": "jest --ci --passWithNoTests"
+  },
+  "dependencies": {
+    "expo": "~48.0.18",
+    "expo-status-bar": "~1.4.4",
+    "nativewind": "^2.0.11",
+    "react": "18.2.0",
+    "react-native": "0.71.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@testing-library/react-native": "^12.1.2",
+    "@types/react": "~18.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard-with-typescript": "^35.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "jest": "^29.5.0",
+    "jest-expo": "^48.0.2",
+    "lint-staged": "^13.2.2",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "react-test-renderer": "^18.2.0",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^4.9.4"
+  },
+  "precommit": {
+    "run": [
+      "lint-staged"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.jsx": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg/@react-navigation/native|@babel/preset-env|@expo/vector-icons|@expo/webpack-config|@react-native-async-storage/async-storage|@react-native-community/checkbox|@react-native-firebase/app|@react-native-picker/picker|@react-navigation/native|@react-navigation/native-stack|@react-navigation/stack|axios|dotenv|expo|expo-checkbox|expo-constants|expo-font|expo-linear-gradient|expo-splash-screen|expo-status-bar|expo-updates|firebase|jest|jest-expo|jotai|metro|nativewind|react|react-dom|react-native|react-native-elements|react-native-modern-datepicker|react-native-safe-area-context|react-native-screens|react-native-web|react-test-renderer|yup|@babel/core|@testing-library/jest-native|@testing-library/react-native|babel-plugin-root-import|babel-preset-expo|eslint|eslint-config-airbnb|eslint-plugin-import|eslint-plugin-jest|eslint-plugin-jsx-a11y|eslint-plugin-react|eslint-plugin-react-hooks|postcss|postcss-loader|react-devtools|tailwindcss)"
+    ]
+  },
+  "private": true
+}
