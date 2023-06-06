@@ -9,6 +9,7 @@ export default function Button({
   loading,
   disabled,
   onPress,
+  className,
   ...props
 }: CustomButtonProps) {
   function handlePress() {
@@ -21,7 +22,7 @@ export default function Button({
       <TouchableOpacity
         className={`flex h-14 w-full flex-row items-center justify-center rounded-md ${
           disabled ? "bg-input_Gray" : "bg-dark_Blue"
-        }`}
+        } ${className}`}
         onPress={handlePress}
         activeOpacity={disabled ? 0.8 : 0.2}
         {...props}

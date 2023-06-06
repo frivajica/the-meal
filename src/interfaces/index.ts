@@ -4,6 +4,7 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { RouteProp } from "@react-navigation/native";
 
 export interface CustomButtonProps extends ButtonProps {
+  className?: string;
   loading?: boolean;
   children?: ReactNode;
   icon?: ReactNode;
@@ -28,7 +29,7 @@ export interface Category {
 
 export type DrawerParamList = {
   Categories: { list: Category[] };
-  Meals: { category: string };
+  Meals: { category: Category };
 };
 export type CategoriesRouteProps = RouteProp<DrawerParamList, "Categories">;
 export interface MealsRouteProps extends RouteProp<DrawerParamList, "Meals"> {}
@@ -38,4 +39,19 @@ export interface Meal {
   strMealThumb: string;
   idMeal: string;
   price: number;
+}
+
+export interface CategoryCardProps {
+  title: string;
+  img: string;
+  onPress: () => unknown;
+}
+
+export interface ProductCardProps {
+  id: string;
+  title: string;
+  img: string;
+  price: number;
+  selected: boolean;
+  onSelect: (id: string) => unknown;
 }

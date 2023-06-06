@@ -6,6 +6,7 @@ import type { Category, DrawerParamList } from "../interfaces";
 import Meals from "../screens/Meals";
 import Categories from "../screens/Categories";
 import { MealService } from "../services/mealService";
+import HeaderRight from "../components/common/HeaderRight";
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -17,8 +18,8 @@ export default function DrawerNavigator() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await MealService.getCategories();
-        setCategories(res.data);
+        const { data } = await MealService.getCategories();
+        setCategories(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -31,19 +32,19 @@ export default function DrawerNavigator() {
   if (!categories.length) return null;
 
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator screenOptions={{ headerRight: HeaderRight }}>
       <Drawer.Screen
         name="Categories"
         component={Categories}
         options={{ drawerItemStyle: { display: "none" } }}
         initialParams={{ list: categories }}
       />
-      {categories.map(({ idCategory, strCategory }) => (
+      {categories.map(category => (
         <Drawer.Screen
-          key={idCategory}
-          name={strCategory as "Meals"}
+          key={category.idCategory}
+          name={category.strCategory as "Meals"}
           component={Meals}
-          initialParams={{ category: strCategory }}
+          initialParams={{ category }}
         />
       ))}
     </Drawer.Navigator>

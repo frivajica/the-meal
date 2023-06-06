@@ -1,9 +1,9 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 
 import type { CategoriesRouteProps } from "../interfaces";
-import Button from "../components/common/Button";
+import CategoryCard from "../components/CategoryCard";
 
 export default function Categories() {
   const navigation = useNavigation();
@@ -12,15 +12,18 @@ export default function Categories() {
   } = useRoute() as CategoriesRouteProps;
 
   return (
-    <ScrollView>
+    <ScrollView className="bg-white">
       <StatusBar style="auto" />
-      {list.map(({ strCategory }) => (
-        <Button
-          key={strCategory}
-          title={strCategory}
-          onPress={() => navigation.navigate(strCategory as never)}
-        />
-      ))}
+      <View className="mx-auto flex flex-row flex-wrap">
+        {list.map(({ strCategory, strCategoryThumb }) => (
+          <CategoryCard
+            key={strCategory}
+            title={strCategory}
+            img={strCategoryThumb}
+            onPress={() => navigation.navigate(strCategory as never)}
+          />
+        ))}
+      </View>
     </ScrollView>
   );
 }
