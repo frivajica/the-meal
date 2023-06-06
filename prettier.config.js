@@ -8,4 +8,12 @@ module.exports = {
   bracketSpacing: true,
   arrowParens: "avoid",
   printWidth: 100,
+  overrides: [
+    {
+      files: "*.tsx",
+      options: {
+        useTabs: false,
+      },
+    },
+  ],
 };
