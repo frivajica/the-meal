@@ -53,5 +53,19 @@ export interface ProductCardProps {
   img: string;
   price: number;
   selected: boolean;
-  onSelect: (id: string) => unknown;
+  onSelect: (item: SelectedItem) => unknown;
+}
+
+export interface SelectedItem {
+  id: string;
+  title: string;
+  img: string;
+  price: number;
+}
+export interface CartItemProps extends SelectedItem {
+  id: string;
+  title: string;
+  img: string;
+  price: number;
+  onRemove: (id: string) => unknown;
 }

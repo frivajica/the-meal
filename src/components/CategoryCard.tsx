@@ -1,6 +1,5 @@
-import { Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 import type { CategoryCardProps } from "../interfaces";
 

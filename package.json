@@ -24,6 +24,7 @@
     "expo-image": "~1.0.1",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
+    "jotai": "^2.1.1",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.71.8",

@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import { View, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useAtom } from "jotai";
+import { Ionicons } from "@expo/vector-icons";
 
-import type { Meal, MealsRouteProps } from "../interfaces";
+import type { Meal, MealsRouteProps, SelectedItem } from "../interfaces";
 import { MealService } from "../services/mealService";
 import MealCard from "../components/ProductCard";
 import Button from "../components/common/Button";
+import { selectedItemsAtom } from "../store";
 
 export default function Meals() {
   const { navigate } = useNavigation();
   const [meals, setMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useAtom(selectedItemsAtom);
   const {
     params: {
       category: { strCategory },
@@ -33,10 +36,10 @@ export default function Meals() {
     void fetchMealsByCategory();
   }, []);
 
-  function handleSelect(id: string) {
-    const index = selectedItems.indexOf(id);
+  function handleSelect(item: SelectedItem) {
+    const index = selectedItems.findIndex(({ id }) => id === item.id);
     if (index === -1) {
-      setSelectedItems([...selectedItems, id]);
+      setSelectedItems([...selectedItems, item]);
     } else {
       const selected = [...selectedItems];
       selected.splice(index, 1);
@@ -53,6 +56,7 @@ export default function Meals() {
         <Button
           className="w-[75%] rounded-full bg-slate-400"
           title="Go Back to Categories"
+          icon={<Ionicons name="return-up-back" size={25} color="white" />}
           onPress={() => navigate("Categories" as never)}
         />
       </View>
@@ -64,7 +68,7 @@ export default function Meals() {
             title={strMeal}
             img={strMealThumb}
             price={price}
-            selected={selectedItems.includes(idMeal)}
+            selected={selectedItems.findIndex(({ id }) => id === idMeal) > -1}
             onSelect={handleSelect}
           />
         ))}
