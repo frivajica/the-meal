@@ -6,7 +6,10 @@ import type { CartItemProps } from "../interfaces";
 
 export default function CartItem({ id, title, img, price, onRemove }: CartItemProps) {
   return (
-    <View className="flex w-full flex-row rounded-md bg-light_Gray">
+    <View
+      style={{ shadowColor: "#b0b0b0", elevation: 3 }}
+      className="flex w-full flex-row rounded-md bg-light_Gray"
+    >
       <View className="flex w-[40%] justify-around p-4">
         <Text className="overflow-clip text-base">{title}</Text>
         <View className="flex flex-row items-center gap-7 pt-2">

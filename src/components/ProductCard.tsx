@@ -13,7 +13,10 @@ export default function ProductCard({
   onSelect,
 }: ProductCardProps) {
   return (
-    <View className="m-2 w-[45%] rounded-md bg-light_Gray p-2">
+    <View
+      style={{ shadowColor: "#eaeaea", elevation: 3 }}
+      className="m-2 w-[45%] rounded-md bg-light_Gray p-2"
+    >
       <Image
         source={img}
         contentFit="fill"

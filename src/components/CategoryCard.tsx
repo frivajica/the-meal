@@ -8,6 +8,7 @@ export default function CategoryCard({ title, img, onPress }: CategoryCardProps)
     <TouchableOpacity
       className="m-2 h-[150px] w-[45vw] rounded-md bg-light_Gray p-2"
       onPress={onPress}
+      style={{ shadowColor: "#b0b0b0", elevation: 3 }}
     >
       <Image source={img} className="h-full w-full flex-1" />
       <Text className="mt-1 text-base">{title}</Text>
