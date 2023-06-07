@@ -70,6 +70,7 @@ function Meals() {
               />
             </View>
           }
+          scrollIndicatorInsets={{ top: 1, bottom: 1 }}
           renderItem={({ item: group, index }) => (
             <View key={index} className="flex min-h-[225px] w-full flex-row">
               {group.map(({ idMeal, strMeal, strMealThumb, price }) => (
