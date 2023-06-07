@@ -19,14 +19,7 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "no-unused-vars": [
-      "error",
-      {
-        "vars": "local",
-        "args": "after-used",
-        "ignoreRestSiblings": false
-      }
-    ],
+    "no-unused-vars": "off",
     "camelcase": [
       "error",
       {
@@ -50,14 +43,17 @@
     "react/react-in-jsx-scope": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/restrict-plus-operands": "off",
     "@typescript-eslint/consistent-indexed-object-style": "off",
+    "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/no-base-to-string": "off",
     "@typescript-eslint/member-delimiter-style": [
       "warn",
