@@ -1,33 +1,81 @@
-import React from "react";
-import { render } from "@testing-library/react-native";
+import { render, fireEvent, waitFor } from "@testing-library/react-native";
+import { useStripe } from "@stripe/stripe-react-native";
+import { PaymentService } from "../../services/paymentService";
 import CartSummary from "./CartSummary";
+import { useNavigation } from "@react-navigation/native";
+
+jest.mock("@stripe/stripe-react-native", () => ({
+  useStripe: jest.fn(() => ({
+    presentPaymentSheet: jest.fn(),
+  })),
+}));
+
+jest.mock("../../services/paymentService", () => ({
+  PaymentService: {
+    getSheetParams: jest.fn(),
+  },
+}));
+
+jest.mock("@react-navigation/native", () => ({
+  useNavigation: jest.fn(() => ({
+    navigate: jest.fn(),
+  })),
+}));
 
 describe("CartSummary component", () => {
-  const mockSubtotal = 19.99;
+  const mockInitPaymentSheet = jest.fn();
+  const mockPresentPaymentSheet = jest.fn();
+  const mockNavigate = jest.fn();
 
-  it("renders correctly", () => {
-    const { getByText, getByTestId } = render(<CartSummary subtotal={mockSubtotal} />);
+  const mockUseStripe = useStripe as jest.Mock;
+  const mockUseNavigation = useNavigation as jest.Mock;
+  const mockPaymentService = PaymentService.getSheetParams as jest.Mock;
 
-    // Check if subtotal text is rendered correctly
-    expect(getByText("Subtotal")).toBeTruthy();
+  const mockSubtotal = 100;
 
-    // Check if subtotal value is rendered correctly
-    expect(getByText("$19.99")).toBeTruthy();
-
-    // Check if checkout button is rendered
-    expect(getByTestId("checkout-button")).toBeTruthy();
+  beforeEach(() => {
+    mockUseStripe.mockReturnValue({
+      initPaymentSheet: mockInitPaymentSheet,
+      presentPaymentSheet: mockPresentPaymentSheet,
+    });
+    mockUseNavigation.mockReturnValue({ navigate: mockNavigate });
+    mockPaymentService.mockReturnValue({ data: { customer: "someCustomer" } });
   });
 
-  // it('calls onPress when checkout button is pressed', () => {
-  //   const mockOnPress = jest.fn();
-  //   const { getByTestId } = render(
-  //     <CartSummary subtotal={mockSubtotal} onPress={mockOnPress} />
-  //   );
-  //   const checkoutButton = getByTestId('checkout-button');
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-  //   fireEvent.press(checkoutButton);
+  it("renders correctly", async () => {
+    const result = render(<CartSummary subtotal={mockSubtotal} />);
+    await waitFor(() => result);
 
-  //   // Check if onPress is called
-  //   expect(mockOnPress).toHaveBeenCalled();
-  // });
+    expect(result.getByTestId("checkout-button")).toBeTruthy();
+  });
+
+  it("initializes payment sheet on subtotal change", async () => {
+    render(<CartSummary subtotal={mockSubtotal} />);
+
+    await waitFor(() => expect(mockInitPaymentSheet).toHaveBeenCalledTimes(1));
+
+    expect(mockInitPaymentSheet).toHaveBeenCalledWith(
+      expect.objectContaining({ customerId: expect.any(String) })
+    );
+  });
+
+  it("opens payment sheet on button press", async () => {
+    mockPresentPaymentSheet.mockResolvedValue({ error: null });
+
+    const result = render(<CartSummary subtotal={mockSubtotal} />);
+
+    await waitFor(() => result);
+    fireEvent.press(result.getByTestId("checkout-button"));
+    expect(mockPresentPaymentSheet).toHaveBeenCalledTimes(1);
+
+    await waitFor(() => result);
+    expect(mockNavigate).toHaveBeenCalledWith("SuccessfulOrder", {
+      screen: "SuccessfulOrder",
+      subtotal: mockSubtotal,
+    });
+  });
 });
