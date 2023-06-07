@@ -62,6 +62,7 @@ function Meals() {
           ListHeaderComponent={
             <View className="mt-4 flex items-center">
               <Button
+                testID="meals-go-back-button"
                 className="w-[75%] rounded-full bg-slate-400"
                 title="Go Back to Categories"
                 icon={<Ionicons name="return-up-back" size={25} color="white" />}

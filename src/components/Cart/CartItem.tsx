@@ -14,7 +14,7 @@ export default function CartItem({ id, title, img, price, onRemove }: CartItemPr
         <Text className="overflow-clip text-base">{title}</Text>
         <View className="flex flex-row items-center gap-7 pt-2">
           <Text className="my-auto text-xl">{`$${price}`}</Text>
-          <TouchableOpacity onPress={() => onRemove(id)}>
+          <TouchableOpacity testID="remove-button" onPress={() => onRemove(id)}>
             <MaterialCommunityIcons name="cart-remove" size={24} color="#d86464" />
           </TouchableOpacity>
         </View>

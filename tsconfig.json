@@ -17,5 +17,6 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true
-  }
+  },
+  "types": ["node", "jest", "@testing-library/jest-dom"],
 }

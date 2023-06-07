@@ -13,6 +13,7 @@ export default function CartSummary({ subtotal }: { subtotal: number }) {
         <Button
           className="rounded-full bg-slate-400"
           title="Checkout!"
+          testID="checkout-button"
           icon={<Entypo name="price-tag" size={24} color="white" />}
           onPress={() => ({})}
         />
