@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 
-import type { CartItemProps } from "../interfaces";
+import type { CartItemProps } from "../../interfaces";
 
 export default function CartItem({ id, title, img, price, onRemove }: CartItemProps) {
   return (
