@@ -1,14 +1,13 @@
 import { FlatList, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useAtom } from "jotai";
+import { memo, useMemo } from "react";
 
 import { selectedItemsAtom } from "../store";
 import CartItem from "../components/Cart/CartItem";
 import EmptyCart from "../components/Cart/EmptyCart";
 import CartSummary from "../components/Cart/CartSummary";
-import { memo, useMemo } from "react";
 
-// export default function ShoppingCart({ navigation }: ShoppingCartScreenProps) {
 function ShoppingCart() {
   const [items, setItems] = useAtom(selectedItemsAtom);
   const subtotal = useMemo(() => items.reduce((acc, { price }) => acc + price, 0), [items]);

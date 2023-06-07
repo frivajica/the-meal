@@ -14,11 +14,14 @@ export interface CustomButtonProps extends ButtonProps {
 export type AppStackParamList = {
   Home: undefined;
   ShoppingCart: undefined;
+  SuccessfulOrder: { subtotal: number };
 };
 
 export interface ShoppingCartScreenProps
   extends NativeStackScreenProps<AppStackParamList, "ShoppingCart"> {}
 export interface HomeScreenProps extends NativeStackScreenProps<AppStackParamList, "Home"> {}
+export interface SuccessfulOrderScreenProps
+  extends NativeStackScreenProps<AppStackParamList, "SuccessfulOrder"> {}
 
 export interface Category {
   idCategory: string;
@@ -31,6 +34,7 @@ export type DrawerParamList = {
   Categories: { list: Category[] };
   Meals: { category: Category };
 };
+export type SuccessfulOrderRouteProps = RouteProp<AppStackParamList, "SuccessfulOrder">;
 export type CategoriesRouteProps = RouteProp<DrawerParamList, "Categories">;
 export interface MealsRouteProps extends RouteProp<DrawerParamList, "Meals"> {}
 
@@ -68,4 +72,8 @@ export interface CartItemProps extends SelectedItem {
   img: string;
   price: number;
   onRemove: (id: string) => unknown;
+}
+
+export interface CartSummaryProps {
+  subtotal: number;
 }

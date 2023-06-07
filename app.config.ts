@@ -28,6 +28,7 @@ export default {
     },
     extra: {
       BASE_URL: process.env.BASE_URL,
+      STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
       eas: {
         projectId: "not yet",
       },

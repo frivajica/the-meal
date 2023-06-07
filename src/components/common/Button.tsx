@@ -25,6 +25,7 @@ export default function Button({
         } ${className}`}
         onPress={handlePress}
         activeOpacity={disabled ? 0.8 : 0.2}
+        disabled={disabled || loading}
         {...props}
       >
         {loading && (

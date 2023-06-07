@@ -1,9 +1,9 @@
+import { memo } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 
 import type { ProductCardProps } from "../../interfaces";
-import { memo } from "react";
 
 function MealCard({ id, title, img, price, selected, onSelect }: ProductCardProps) {
   return (
