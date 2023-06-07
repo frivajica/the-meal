@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { selectedItemsAtom } from "../store";
 import CartItem from "../components/Cart/CartItem";
 import EmptyCart from "../components/Cart/EmptyCart";
-import CartSummary from "../components/Cart";
+import CartSummary from "../components/Cart/CartSummary";
 import { memo, useMemo } from "react";
 
 // export default function ShoppingCart({ navigation }: ShoppingCartScreenProps) {
