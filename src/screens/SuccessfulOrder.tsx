@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { useAtom } from "jotai";
 
 import type { SuccessfulOrderRouteProps } from "../interfaces";
@@ -23,10 +23,18 @@ export default function SuccessfulOrder() {
   return (
     <View className="flex-1 items-center justify-center bg-white pt-2">
       <StatusBar style="auto" />
-      <Text className="m-3 text-center text-4xl font-semibold">Thank you for your purchase!</Text>
+      <Text className="m-3 text-center text-5xl font-semibold">Thank you for your purchase!</Text>
       <Text className="m-3 mb-10 text-center text-3xl">{`You've been charged $${subtotal}`}</Text>
-      <Ionicons name="restaurant-outline" size={100} color="black" />
-      <Button title="Go Home" onPress={goHomeAndCleanUp} />
+      <AntDesign name="smileo" size={150} color="black" />
+      <View className="mt-7 flex items-center">
+        <Button
+          testID="meals-go-back-button"
+          className="w-[75%] rounded-full bg-slate-400"
+          title="Go Back to Categories"
+          icon={<AntDesign name="home" size={24} color="white" />}
+          onPress={goHomeAndCleanUp}
+        />
+      </View>
     </View>
   );
 }
