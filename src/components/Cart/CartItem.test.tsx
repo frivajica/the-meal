@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react-native";
+import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import CartItem from "./CartItem";
 
 describe("CartItem component", () => {
@@ -8,7 +8,9 @@ describe("CartItem component", () => {
     title: "Sample Item",
     img: "../path/to/image.jpg",
     price: 10.99,
-    onRemove: jest.fn(),
+    quantity: 1,
+    onChange: jest.fn(),
+    onDebounceStart: jest.fn(),
   };
 
   it("renders correctly", () => {
@@ -19,13 +21,12 @@ describe("CartItem component", () => {
     expect(getByTestId("remove-button")).toBeTruthy();
   });
 
-  it("calls onRemove when remove button is pressed", () => {
+  it("calls onRemove when remove button is pressed", async () => {
     const { getByTestId } = render(<CartItem {...mockItem} />);
     const removeButton = getByTestId("remove-button");
 
     fireEvent.press(removeButton);
 
-    // Check if onRemove is called with the correct id
-    expect(mockItem.onRemove).toHaveBeenCalledWith("1");
+    await waitFor(() => expect(mockItem.onChange).toHaveBeenCalledWith({ id: "1", quantity: 0 }));
   });
 });
