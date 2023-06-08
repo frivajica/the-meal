@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 
 import type { CustomButtonProps } from "../../interfaces";
 
@@ -30,6 +30,7 @@ export default function Button({
       >
         {loading && (
           <>
+            <ActivityIndicator className="mr-1.5" size="small" color="white" />
             <Text className="text-center text-xl text-white">Loading...</Text>
           </>
         )}

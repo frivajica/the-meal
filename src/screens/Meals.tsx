@@ -41,7 +41,7 @@ function Meals() {
   function handleSelect(item: SelectedItem) {
     const index = selectedItems.findIndex(({ id }) => id === item.id);
     if (index === -1) {
-      setSelectedItems([...selectedItems, item]);
+      setSelectedItems([...selectedItems, { ...item }]);
     } else {
       const selected = [...selectedItems];
       selected.splice(index, 1);

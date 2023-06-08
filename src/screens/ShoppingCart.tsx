@@ -1,22 +1,33 @@
 import { FlatList, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useAtom } from "jotai";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState } from "react";
 
 import { selectedItemsAtom } from "../store";
 import CartItem from "../components/Cart/CartItem";
 import EmptyCart from "../components/Cart/EmptyCart";
-import CartSummary from "../components/Cart/CartSummary";
+import Checkout from "../components/Cart/Checkout";
+
+import type { SelectedItem } from "../interfaces";
 
 function ShoppingCart() {
   const [items, setItems] = useAtom(selectedItemsAtom);
-  const subtotal = useMemo(() => items.reduce((acc, { price }) => acc + price, 0), [items]);
+  const [isLoading, setIsLoading] = useState(false);
+  const subtotal = useMemo(
+    () => items.reduce((acc, { price, quantity }) => acc + price * quantity, 0),
+    [items]
+  );
 
-  function handleRemove(id: string) {
-    const index = items.findIndex(item => item.id === id);
+  function handleQuantityChange({ id, quantity }: Partial<SelectedItem>) {
+    const index = items.findIndex(item => id === item.id);
     const newItemsArray = [...items];
-    newItemsArray.splice(index, 1);
+    if (quantity) {
+      newItemsArray[index].quantity = quantity;
+    } else {
+      newItemsArray.splice(index, 1);
+    }
     setItems([...newItemsArray]);
+    setIsLoading(false);
   }
 
   if (!items.length) return <EmptyCart />;
@@ -33,11 +44,15 @@ function ShoppingCart() {
         )}
         renderItem={({ item }) => (
           <View className="mx-4 my-1">
-            <CartItem {...item} onRemove={handleRemove} />
+            <CartItem
+              {...item}
+              onDebounceStart={() => setIsLoading(true)}
+              onChange={handleQuantityChange}
+            />
           </View>
         )}
       />
-      <CartSummary subtotal={subtotal} />
+      <Checkout subtotal={subtotal} loading={isLoading} />
     </View>
   );
 }

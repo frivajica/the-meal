@@ -9,6 +9,7 @@ describe("MealCard component", () => {
     img: "../../path/to/image.jpg",
     price: 9.99,
     selected: false,
+    quantity: 1,
     onSelect: jest.fn(),
   };
 
@@ -31,6 +32,7 @@ describe("MealCard component", () => {
       title: "Sample Meal",
       img: "../../path/to/image.jpg",
       price: 9.99,
+      quantity: 1,
     });
   });
 
@@ -46,6 +48,7 @@ describe("MealCard component", () => {
       title: "Sample Meal",
       img: "../../path/to/image.jpg",
       price: 9.99,
+      quantity: 1,
     });
   });
 });

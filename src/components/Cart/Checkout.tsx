@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useStripe } from "@stripe/stripe-react-native";
 
@@ -8,9 +8,9 @@ import { PaymentService } from "../../services/paymentService";
 import Button from "../common/Button";
 import { useNavigation } from "@react-navigation/native";
 
-export default function CartSummary({ subtotal }: CartSummaryProps) {
+export default function CartSummary({ loading, subtotal }: CartSummaryProps) {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const { navigate } = useNavigation();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function CartSummary({ subtotal }: CartSummaryProps) {
 
   async function initializePaymentSheet() {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const { data } = await PaymentService.getSheetParams(subtotal);
       const { paymentIntent, ephemeralKey, customer } = data;
 
@@ -44,7 +44,7 @@ export default function CartSummary({ subtotal }: CartSummaryProps) {
           name: "Jane Doe",
         },
       });
-      setLoading(false);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -61,13 +61,17 @@ export default function CartSummary({ subtotal }: CartSummaryProps) {
     <View className="mx-4 mt-10 px-10">
       <View className="flex flex-row justify-between px-10">
         <Text className="text-xl text-icon_Gray">Subtotal</Text>
-        <Text className="text-xl font-semibold text-icon_Gray">{`$${subtotal}`}</Text>
+        {loading || isLoading ? (
+          <ActivityIndicator className="mr-1.5" size="small" color="#636363" />
+        ) : (
+          <Text className="text-xl font-semibold text-icon_Gray">{`$${subtotal}`}</Text>
+        )}
       </View>
       <View className="my-4 flex items-center">
         <Button
           className="rounded-full bg-slate-400"
           title="Checkout!"
-          loading={loading}
+          loading={isLoading || loading}
           testID="checkout-button"
           icon={<Entypo name="price-tag" size={24} color="white" />}
           onPress={openPaymentSheet}
