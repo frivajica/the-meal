@@ -17,7 +17,10 @@ function MealCard({ id, title, img, price, selected, onSelect }: ProductCardProp
       <Text className="mt-1 text-base">{title}</Text>
       <View className="mt-1 flex flex-row items-center justify-between">
         <Text className="my-auto text-xl">{`$${price}`}</Text>
-        <TouchableOpacity testID="meal-card" onPress={() => onSelect({ id, title, img, price })}>
+        <TouchableOpacity
+          testID="meal-card"
+          onPress={() => onSelect({ id, title, img, price, quantity: 1 })}
+        >
           {selected ? (
             <MaterialCommunityIcons
               testID="remove-from-cart-button"

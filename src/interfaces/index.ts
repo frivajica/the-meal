@@ -62,6 +62,7 @@ export interface ProductCardProps {
 
 export interface SelectedItem {
   id: string;
+  quantity: number;
   title: string;
   img: string;
   price: number;
@@ -71,9 +72,11 @@ export interface CartItemProps extends SelectedItem {
   title: string;
   img: string;
   price: number;
-  onRemove: (id: string) => unknown;
+  onChange: (params: { id: string; quantity: number }) => unknown;
+  onDebounceStart: () => unknown;
 }
 
 export interface CartSummaryProps {
   subtotal: number;
+  loading?: boolean;
 }
